@@ -1,11 +1,11 @@
 import pytest
 
-import httpie_salesforce_auth
+import httpie_salesforce
 
 
 @pytest.fixture
 def flow():
-    return httpie_salesforce_auth.PasswordFlow()
+    return httpie_salesforce.PasswordFlow()
 
 
 def test_url(flow):

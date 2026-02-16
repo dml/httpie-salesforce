@@ -3,13 +3,14 @@ Salesforce API auth plugin for HTTPie.
 
 """
 
+import importlib.metadata
 import os
 import sys
 
 import requests
 from httpie.plugins import AuthPlugin
 
-__version__ = "0.0.1"
+__version__ = importlib.metadata.version("httpie-salesforce")
 __author__ = "Dmytro Larkin"
 __licence__ = "BSD"
 

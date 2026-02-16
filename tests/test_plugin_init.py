@@ -1,11 +1,11 @@
 import pytest
 
-import httpie_salesforce_auth
+import httpie_salesforce
 
 
 @pytest.fixture
 def plugin():
-    return httpie_salesforce_auth.SalesforceAuthPlugin()
+    return httpie_salesforce.SalesforceAuthPlugin()
 
 
 def test_init(plugin):
@@ -19,4 +19,4 @@ def test_init(plugin):
 
 
 def test_get_auth(plugin):
-    assert isinstance(plugin.get_auth(), httpie_salesforce_auth.PasswordFlow)
+    assert isinstance(plugin.get_auth(), httpie_salesforce.PasswordFlow)
