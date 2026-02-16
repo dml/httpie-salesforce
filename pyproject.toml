@@ -27,6 +27,9 @@ classifiers = [
     "Programming Language :: Python :: 3.14",
 ]
 
+[project.urls]
+Homepage = "https://github.com/dml/httpie-salesforce"
+
 [[tool.uv.index]]
 name = "httpie-salesforce"
 url = "https://test.pypi.org/simple/"
