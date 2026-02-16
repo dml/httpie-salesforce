@@ -1,10 +1,10 @@
 [build-system]
-requires = ["setuptools"]
+requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "httpie-salesforce"
-version = "0.2.0"
+version = "0.2.2"
 description = "HTTPie Authorization plugin for Salesforce API"
 readme = "README.md"
 license = "BSD-3-Clause"
@@ -29,9 +29,11 @@ classifiers = [
 
 [project.urls]
 Homepage = "https://github.com/dml/httpie-salesforce"
+Repository = "https://github.com/dml/httpie-salesforce.git"
+Issues = "https://github.com/dml/httpie-salesforce/issues"
 
 [[tool.uv.index]]
-name = "httpie-salesforce"
+name = "test"
 url = "https://test.pypi.org/simple/"
 publish-url = "https://test.pypi.org/legacy/"
 explicit = true
