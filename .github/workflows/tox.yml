@@ -1,0 +1,110 @@
+name: check
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+    tags-ignore: ["**"]
+  pull_request:
+  schedule:
+    - cron: "0 8 * * *"
+
+permissions:
+  contents: read
+
+env:
+  FORCE_COLOR: 1
+
+concurrency:
+  group: check-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: test ${{ matrix.py }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        py:
+          - "3.14"
+          - "3.13"
+          - "3.12"
+          - "3.11"
+          - "3.10"
+        os:
+          - ubuntu-24.04
+          - windows-2025
+          - macos-15
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+          cache-dependency-glob: "pyproject.toml"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Cache wheel downloads
+        uses: actions/cache@v5
+        with:
+          path: .wheel_cache
+          key: wheel-cache-${{ runner.os }}-${{ matrix.py }}-${{ hashFiles('pyproject.toml') }}
+          restore-keys: |
+            wheel-cache-${{ runner.os }}-${{ matrix.py }}-
+            wheel-cache-${{ runner.os }}-
+      - name: Add .local/bin to Windows PATH
+        if: runner.os == 'Windows'
+        shell: bash
+        run: echo "$USERPROFILE/.local/bin" >> $GITHUB_PATH
+      - name: Install tox@self
+        run: uv tool install --python-preference only-managed --python ${{ matrix.py }} tox@.
+      - name: Setup test suite
+        run: tox run -vv --notest --skip-missing-interpreters false -e ${{ matrix.py }}
+      - name: Run test suite
+        run: tox run --skip-pkg-install -e ${{ matrix.py }}
+        env:
+          PYTEST_ADDOPTS: "-vv --durations=20"
+          DIFF_AGAINST: HEAD
+          PYTEST_XDIST_AUTO_NUM_WORKERS: 0
+
+  check:
+    name: tox env ${{ matrix.tox_env }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        tox_env:
+          - lint
+        os:
+          - ubuntu-24.04
+          - windows-2025
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+          cache-dependency-glob: "pyproject.toml"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Cache wheel downloads
+        uses: actions/cache@v5
+        with:
+          path: .wheel_cache
+          key: wheel-cache-${{ runner.os }}-3.14-${{ hashFiles('pyproject.toml') }}
+          restore-keys: |
+            wheel-cache-${{ runner.os }}-3.14-
+            wheel-cache-${{ runner.os }}-
+      - name: Add .local/bin to Windows PATH
+        if: runner.os == 'Windows'
+        shell: bash
+        run: echo "$USERPROFILE/.local/bin" >> $GITHUB_PATH
+      - name: Install tox@self
+        run: uv tool install --python-preference only-managed --python 3.14 tox@.
+      - name: Setup check suite
+        run: tox r -vv --notest --skip-missing-interpreters false -e ${{ matrix.tox_env }}
+      - name: Run check for ${{ matrix.tox_env }}
+        run: tox r --skip-pkg-install -e ${{ matrix.tox_env }}
