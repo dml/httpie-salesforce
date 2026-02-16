@@ -33,7 +33,13 @@ Repository = "https://github.com/dml/httpie-salesforce.git"
 Issues = "https://github.com/dml/httpie-salesforce/issues"
 
 [[tool.uv.index]]
-name = "test"
+name = "sandbox"
 url = "https://test.pypi.org/simple/"
 publish-url = "https://test.pypi.org/legacy/"
+explicit = true
+
+[[tool.uv.index]]
+name = "production"
+url = "https://pypi.org/simple/"
+publish-url = "https://upload.pypi.org/legacy/"
 explicit = true
