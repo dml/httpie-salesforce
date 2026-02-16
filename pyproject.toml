@@ -1,0 +1,25 @@
+[project]
+name = "httpie-salesforce"
+version = "0.0.1"
+description = "HTTPie Authorization plugin for Salesforce API"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "httpie>=3.2.4",
+    "requests>=2.32.5",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.2",
+]
+
+[build-system]
+requires = ["setuptools>=78.1.0", "wheel>=0.45.1"]
+build-backend = "setuptools.build_meta"
+
+[[tool.uv.index]]
+name = "httpie-salesforce"
+url = "https://test.pypi.org/simple/"
+publish-url = "https://test.pypi.org/legacy/"
+explicit = true
