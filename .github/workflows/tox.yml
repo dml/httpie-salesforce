@@ -59,7 +59,7 @@ jobs:
         shell: bash
         run: echo "$USERPROFILE/.local/bin" >> $GITHUB_PATH
       - name: Install tox@self
-        run: uv tool install --python-preference only-managed --python ${{ matrix.py }} tox@.
+        run: uv tool install --python-preference only-managed --python ${{ matrix.py }} httpie-salesforce@.
       - name: Setup test suite
         run: tox run -vv --notest --skip-missing-interpreters false -e ${{ matrix.py }}
       - name: Run test suite
@@ -103,7 +103,7 @@ jobs:
         shell: bash
         run: echo "$USERPROFILE/.local/bin" >> $GITHUB_PATH
       - name: Install tox@self
-        run: uv tool install --python-preference only-managed --python 3.14 tox@.
+        run: uv tool install --python-preference only-managed --python 3.14 httpie-salesforce@.
       - name: Setup check suite
         run: tox r -vv --notest --skip-missing-interpreters false -e ${{ matrix.tox_env }}
       - name: Run check for ${{ matrix.tox_env }}
