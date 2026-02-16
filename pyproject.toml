@@ -1,21 +1,31 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "httpie-salesforce"
-version = "0.1.0"
+version = "0.2.0"
 description = "HTTPie Authorization plugin for Salesforce API"
+readme = "README.md"
 license = "BSD-3-Clause"
+license-files = ["LICENSE"]
 authors = [
     {name = "Dmytro Larkin", email = "dmitry.larkin@gmail.com"},
 ]
-readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 dependencies = [
     "httpie>=3.2.4",
     "requests>=2.32.5",
 ]
-
-[build-system]
-requires = ["setuptools>=78.1.0", "wheel>=0.45.1"]
-build-backend = "setuptools.build_meta"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+]
 
 [[tool.uv.index]]
 name = "httpie-salesforce"
