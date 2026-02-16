@@ -1,0 +1,6 @@
+[pytest_env]
+SF_CLIENT_ID = "test-client-id"
+SF_CLIENT_SECRET = "test-client-secret"
+SF_USERNAME = "test-username"
+SF_PASSWORD = "test-password"
+SF_TOKEN = "test-security-token"

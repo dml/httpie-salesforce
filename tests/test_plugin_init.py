@@ -1,9 +1,14 @@
+import pytest
+
 import httpie_salesforce_auth
 
 
-def test_init():
-    plugin = httpie_salesforce_auth.SalesforceAuthPlugin()
+@pytest.fixture
+def plugin():
+    return httpie_salesforce_auth.SalesforceAuthPlugin()
 
+
+def test_init(plugin):
     assert plugin.name == "Salesforce REST API Auth"
     assert plugin.auth_type == "salesforce"
     assert plugin.description == (
@@ -11,3 +16,7 @@ def test_init():
     )
     assert plugin.auth_require is False
     assert plugin.prompt_password is False
+
+
+def test_get_auth(plugin):
+    assert isinstance(plugin.get_auth(), httpie_salesforce_auth.PasswordFlow)
