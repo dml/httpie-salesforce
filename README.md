@@ -4,7 +4,9 @@ Salesforce REST API authorization with HTTPie.
 
 ## Install Plugin
 
-...
+```shell
+httpie cli plugins install httpie-salesforce
+```
 
 ## Use OAuth Flows
 

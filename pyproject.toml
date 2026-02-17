@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "httpie-salesforce"
-version = "0.2.2"
+version = "0.0.12"
 description = "HTTPie Authorization plugin for Salesforce API"
 readme = "README.md"
 license = "BSD-3-Clause"
@@ -26,6 +26,9 @@ classifiers = [
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3.14",
 ]
+
+[project.entry-points."httpie.plugins.auth.v1"]
+httpie_salesforce = "httpie_salesforce:SalesforceAuthPlugin"
 
 [project.urls]
 Homepage = "https://github.com/dml/httpie-salesforce"

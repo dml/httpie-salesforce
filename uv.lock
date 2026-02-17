@@ -141,7 +141,7 @@ wheels = [
 
 [[package]]
 name = "httpie-salesforce"
-version = "0.2.2"
+version = "0.0.12"
 source = { editable = "." }
 dependencies = [
     { name = "httpie" },
